@@ -1,0 +1,67 @@
+{
+  "task_id": "task_2026_example_a1b2c3",
+  "task_type": "document_summary",
+  "spec": {
+    "instruction": "Summarize the attached technical document in under 300 words. Preserve all factual claims. Do not invent details.",
+    "inputs": [
+      {
+        "kind": "document",
+        "ref": "example://documents/architecture-overview.md",
+        "checksum": "sha256:placeholder-not-a-real-hash"
+      }
+    ],
+    "constraints": {
+      "max_output_tokens": 600,
+      "must_not_invent_facts": true,
+      "rubric_id": "rubric_document_summary_v3"
+    }
+  },
+  "state": "awaiting_review",
+  "created_at": "2026-05-18T14:22:11Z",
+  "updated_at": "2026-05-18T14:22:47Z",
+  "proof_bundle": {
+    "bundle_id": "bundle_example_a1b2c3",
+    "evidence": [
+      {
+        "kind": "file_read",
+        "ref": "example://documents/architecture-overview.md",
+        "lines_cited": [12, 45, 78, 91]
+      },
+      {
+        "kind": "search",
+        "query": "FastAPI gateway routing pattern",
+        "hits_used": 0
+      }
+    ],
+    "reasoning_summary": "Source covers six components. Summary preserves all six, drops one example paragraph as least-essential per length budget."
+  },
+  "proposal": {
+    "output_ref": "example://outputs/summary_a1b2c3.md",
+    "side_effects": [],
+    "requires_approval": true,
+    "approval_reason": "Output destined for a customer-facing document. Policy requires human review before publication."
+  },
+  "model_call": {
+    "provider": "example_provider",
+    "model": "example-model-id",
+    "token_usage": {
+      "input": 1842,
+      "output": 387
+    },
+    "latency_ms": 4120
+  },
+  "evaluation": {
+    "rubric_id": "rubric_document_summary_v3",
+    "scores": {
+      "factual_accuracy": 5,
+      "completeness": 4,
+      "conciseness": 5,
+      "structure": 4,
+      "tone_match": 4,
+      "no_hallucination": 5
+    },
+    "weighted_score": 4.65,
+    "judge": "self_eval",
+    "judge_notes": "All claims traceable. One section briefly compressed; reviewer may want to expand."
+  }
+}

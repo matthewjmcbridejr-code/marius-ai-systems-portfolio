@@ -1,0 +1,71 @@
+{
+  "snapshot_at": "2026-05-18T14:30:00Z",
+  "providers": [
+    {
+      "id": "example_cloud_a",
+      "kind": "cloud_llm",
+      "status": "healthy",
+      "recent_window": {
+        "duration_minutes": 15,
+        "requests": 247,
+        "errors": 1,
+        "error_rate": 0.004,
+        "p50_latency_ms": 1280,
+        "p95_latency_ms": 4910
+      },
+      "rate_limit_remaining": {
+        "requests_per_minute": 412,
+        "tokens_per_minute": 168000
+      },
+      "preferred_for": [
+        "long_generation",
+        "tool_use"
+      ]
+    },
+    {
+      "id": "example_cloud_b",
+      "kind": "cloud_llm",
+      "status": "degraded",
+      "recent_window": {
+        "duration_minutes": 15,
+        "requests": 89,
+        "errors": 12,
+        "error_rate": 0.135,
+        "p50_latency_ms": 2200,
+        "p95_latency_ms": 11400
+      },
+      "rate_limit_remaining": {
+        "requests_per_minute": 200,
+        "tokens_per_minute": 90000
+      },
+      "preferred_for": [
+        "short_classification"
+      ],
+      "demotion_reason": "Sustained elevated error rate. Routing weight reduced. Will re-promote after 10 consecutive successful minutes."
+    },
+    {
+      "id": "example_local_a",
+      "kind": "local_llm",
+      "status": "healthy",
+      "recent_window": {
+        "duration_minutes": 15,
+        "requests": 64,
+        "errors": 0,
+        "error_rate": 0,
+        "p50_latency_ms": 3400,
+        "p95_latency_ms": 6800
+      },
+      "rate_limit_remaining": null,
+      "preferred_for": [
+        "low_stakes_batch",
+        "offline_evaluation"
+      ]
+    }
+  ],
+  "routing_policy_in_effect": "weighted_health_with_cost_ceiling_v2",
+  "notes": [
+    "Provider IDs in this example are placeholders. Real provider account names are not exposed in this schema.",
+    "API keys and tokens are never carried in this payload.",
+    "This snapshot is illustrative — production snapshots are minute-resolution and queried via the dashboard."
+  ]
+}
