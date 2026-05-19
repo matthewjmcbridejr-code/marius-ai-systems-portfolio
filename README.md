@@ -2,25 +2,30 @@
 
 A sanitized public portfolio of AI systems work by **Matt McBride**.
 
-This repository is a public-facing companion to a private multi-agent AI orchestration project called Marius. It is intended to demonstrate architecture, workflow design, evaluation thinking, and AI systems operations — without exposing the underlying production code or any private operational details.
+This repository is a public-facing companion to private multi-agent AI systems work. It is intended to demonstrate architecture, workflow design, evaluation thinking, and AI systems operations — without exposing the underlying production code or any private operational details.
 
 ---
 
-## What This Repo Is
+## Start Here
 
-A documentation-and-examples package showing how I think about and build:
+- **[`projects/`](./projects/)** — appetizer pages for the eight projects this portfolio is drawn from. One file per project. Read these first.
+- **[`docs/architecture.md`](./docs/architecture.md)** — cross-cutting system architecture for the Marius platform: gateway, provider routing, policy layer, task coordination, evaluation, dashboard.
+- **[`docs/workflow_examples.md`](./docs/workflow_examples.md)** — four representative agent workflow patterns.
+- **[`docs/evaluation_and_safety.md`](./docs/evaluation_and_safety.md)** — evaluation rubric design and the safety principles the systems are built around.
+- **[`examples/`](./examples/)** — representative schemas: an agent task packet, a provider status snapshot, an evaluation rubric format.
 
-- Multi-agent AI systems with provider routing and policy gates
-- LLM evaluation pipelines and rubric-based scoring
-- Filesystem and GitHub-oriented coordination layers for agents
-- Operator-facing dashboards and audit trails
-- Human-in-the-loop pull request workflows for agent-generated changes
+## The Projects
 
-## What This Repo Is Not
-
-- **Not the production code.** The real Marius system runs in private repositories and is not included or referenced here.
-- **Not a runnable application.** The examples are illustrative — schemas, structures, and rubric formats — not a working system you can clone and start.
-- **Not a vendor pitch.** No client work, no testimonials, no metrics, no contractor sales material lives here.
+| Project | One-liner | Status |
+|---|---|---|
+| [Marius Mind](./projects/marius-mind.md) | Multi-agent orchestration and control plane | Private |
+| [Marius Code](./projects/marius-code.md) | Code-reading and PR-proposing agent | Private |
+| [Marius Trader](./projects/marius-trader.md) | Paper-only AI trading research cockpit | Research |
+| [Marius Radar](./projects/marius-radar.md) | OSINT-driven prospect intelligence engine | Private |
+| [Marius Foreman](./projects/marius-foreman.md) | Missed-call recovery system for contractors | Live |
+| [McTable](./projects/mctable.md) | Filesystem + GitHub coordination layer for agents | Private |
+| [Lead Leak Scan](./projects/lead-leak-scan.md) | SMB website audit tool | Live |
+| [Good Stuff Vault](./projects/good-stuff-vault.md) | Portfolio of 12 paywalled curated sites | Live |
 
 ## What Is Intentionally Excluded
 
@@ -30,22 +35,6 @@ A documentation-and-examples package showing how I think about and build:
 - Trading execution code, broker API integrations, or live order routing
 - Internal domain names, private repository names, or operational hostnames
 - Any business-sensitive contract, pricing, or revenue details
-
-## Repository Contents
-
-```
-.
-├── README.md                          (this file)
-├── docs/
-│   ├── architecture.md                System architecture and component design
-│   ├── workflow_examples.md           Representative agent workflow patterns
-│   ├── evaluation_and_safety.md       Evaluation rubric design and safety gates
-│   └── project_summaries.md           Brief sanitized summaries of related work
-└── examples/
-    ├── agent_task_packet.example.json     Shape of a coordinated agent task
-    ├── provider_status.example.json       Shape of a provider routing/status record
-    └── evaluation_rubric.example.md       Example rubric format for output scoring
-```
 
 ## Background
 
