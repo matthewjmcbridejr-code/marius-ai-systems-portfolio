@@ -1,37 +1,39 @@
 # McTable
 
-*Filesystem and GitHub coordination layer for agents.*
+*Agent operations control plane for proof-gated AI software work. Public surface: [mctable.team](https://mctable.team).*
 
-Treats agent output as auditable artifacts rather than opaque API calls. Every task has an ID. Every proposed change has a proof bundle. Every code change ships as a reviewable pull request. The data shape is the durable record.
+McTable treats agent output as auditable artifacts rather than opaque chat transcripts or unreviewed code changes. Every task has an ID. Every proposed change has a proof bundle. Every code change ships as a reviewable pull request. The data shape is the durable record.
+
+Public site: [mctable.team](https://mctable.team)
 
 ## What it does
 
-Sits underneath the Marius platform as the coordination layer between operator intent and agent execution:
+McTable sits between operator intent and agent execution:
 
 - **Task records.** Every agent run starts from a task with a stable ID, a spec, an assigned agent, and a state machine state. Task records survive process restarts, queue drains, and operator handoffs.
-- **Proof bundles.** Before an agent proposes a change, it assembles a bundle: which files it read, which lines it cited, which searches it ran, which alternatives it considered, and the short reasoning summary that led to the proposal. The bundle is referenced from the PR and queryable from the dashboard.
-- **Activity log.** A per-agent, append-only stream of what each agent has done over time. "What did agent X do last Tuesday?" has a real answer.
-- **Pull request workflow.** Code-side effects don't land on `main` directly. They land on a branch, get a PR with the task ID and rationale in the description, and a human merges.
+- **Proof bundles.** Before an agent proposes a change, it assembles evidence: which files it read, which lines it cited, which searches it ran, which alternatives it considered, and what it changed.
+- **Activity log.** A per-agent, append-only stream of what each agent has done over time. “What did agent X do last Tuesday?” has a real answer.
+- **Pull request workflow.** Code-side effects do not land on `main` directly. They land on a branch, get a PR with a task ID and rationale, and a human merges.
+- **Authority firewall.** Emotional language, urgency, and praise do not grant execution authority. High-risk actions require explicit approval plus objective checks.
 
 ## Why this matters
 
-Most agent observability is a transcript of the agent's chain-of-thought. That's interesting for debugging but useless for accountability. A transcript doesn't tell you what the agent *did* — only what it said it was doing.
+Most agent tooling treats a transcript as the source of truth. That is not enough for software operations. A transcript says what the agent claimed it was doing; McTable records what changed, what was reviewed, what was blocked, and what was approved.
 
-McTable captures the side-effect side of the ledger: artifacts produced, references touched, branches created, PRs opened, scores logged. The agent's reasoning trace is attached but not the source of truth.
-
-This is the layer that makes "the system did X" a question with a definitive answer.
+This is the layer that makes “the system did X” a question with a definitive answer.
 
 ## Architecture
 
-- JSON Schema for the task record, proof bundle, and activity entry shapes.
+- JSON Schema for task records, proof bundles, activity entries, and approval decisions.
 - GitHub REST and GraphQL APIs for branch, commit, PR, and review status operations.
-- An append-only log store (queryable by task ID, agent, time range).
-- A lightweight web UI for the operator: live task state, recent activity, approval queue.
+- Append-only local activity and proof stores.
+- Lightweight operator UI for repo state, task state, recent activity, approvals, and PR review.
+- Policy gates for destructive actions, merges, deploys, spending, and external communication.
 
 ## Stack
 
-Python, GitHub REST/GraphQL APIs, JSON Schema, structured logging, simple web UI.
+Python, FastAPI, GitHub REST/GraphQL APIs, JSON Schema, SQLite-style local state, structured logging, simple web UI, webhook integrations.
 
 ## Status
 
-Private. Used as the coordination layer for all Marius platform work and as a model for how agent output should be structured downstream.
+Private implementation with public positioning at [mctable.team](https://mctable.team). Used as the coordination layer for Marius platform work and as a model for how agent output should be structured downstream.
